@@ -16,7 +16,10 @@ class CategoriesStack extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(context,MaterialPageRoute(builder: (context)=> ResultsPage(category: category)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ResultsPage(category: category)));
       },
       child: Stack(
         alignment: Alignment.center,
@@ -39,7 +42,7 @@ class CategoriesStack extends StatelessWidget {
           ),
           Text(
             title,
-            style: GoogleFonts.montserrat(
+            style: GoogleFonts.dosis(
                 fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ],
