@@ -1,11 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:share/share.dart';
 import 'package:wallpaper_app/bloc/savetogallary_bloc.dart';
 import 'package:wallpaper_app/ui/widgets/loading.dart';
 
 class ImageView extends StatelessWidget {
+  static const platform = const MethodChannel('com.divyanshu.chitr/wallpaper');
+  Future<void> _setWallpaper(int wallpaperType) async {
+    var file = await DefaultCacheManager().getSingleFile(imgUrl);
+    try {
+      final int result = await platform
+          .invokeMethod('setWallpaper', [file.path, wallpaperType]);
+      print('Wallpaer Updated.... $result');
+    } on PlatformException catch (e) {
+      print("Failed to Set Wallpaer: '${e.message}'.");
+    }
+  }
+
   final String imgUrl;
   const ImageView({
     Key? key,
@@ -48,14 +63,13 @@ class ImageView extends StatelessWidget {
                   Buttons(
                     icon: FontAwesomeIcons.share,
                     onTap: () {
-                      print("Shared");
+                      Share.share(
+                          "download wallpaper app for amazing wallpapers $imgUrl ");
                     },
                   ),
                   Buttons(
                     icon: FontAwesomeIcons.brush,
-                    onTap: () {
-                      print("Applied");
-                    },
+                    onTap: () {},
                   ),
                 ],
               )
@@ -67,14 +81,13 @@ class ImageView extends StatelessWidget {
   _askPermission() async {
     if (await Permission.contacts.request().isGranted) {
       return;
-    } 
+    }
 
     Map<Permission, PermissionStatus> statuses = await [
       Permission.storage,
     ].request();
     print(statuses[Permission.storage]);
   }
-  
 }
 
 class Buttons extends StatelessWidget {
