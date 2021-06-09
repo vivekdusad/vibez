@@ -1,26 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
 import 'package:wallpaper_app/bloc/savetogallary_bloc.dart';
+import 'package:wallpaper_app/ui/widgets/actionsheet.dart';
 import 'package:wallpaper_app/ui/widgets/loading.dart';
+import 'package:wallpaper_manager/wallpaper_manager.dart';
 
 class ImageView extends StatelessWidget {
-  static const platform = const MethodChannel('com.divyanshu.chitr/wallpaper');
-  Future<void> _setWallpaper(int wallpaperType) async {
-    var file = await DefaultCacheManager().getSingleFile(imgUrl);
-    try {
-      final int result = await platform
-          .invokeMethod('setWallpaper', [file.path, wallpaperType]);
-      print('Wallpaer Updated.... $result');
-    } on PlatformException catch (e) {
-      print("Failed to Set Wallpaer: '${e.message}'.");
-    }
-  }
-
   final String imgUrl;
   const ImageView({
     Key? key,
@@ -33,7 +25,14 @@ class ImageView extends StatelessWidget {
     return BlocProvider(
         create: (context) => savetogallaryBloc,
         child: Scaffold(
-          body: Stack(
+            body: BlocListener<SavetogallaryBloc, SavetogallaryState>(
+          listener: (context, state) {
+            if (state is SaveToGallarySucess) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text("Downloaded")));
+            }
+          },
+          child: Stack(
             alignment: Alignment.bottomCenter,
             children: [
               Container(
@@ -61,21 +60,48 @@ class ImageView extends StatelessWidget {
                     },
                   ),
                   Buttons(
-                    icon: FontAwesomeIcons.share,
-                    onTap: () {
-                      Share.share(
-                          "download wallpaper app for amazing wallpapers $imgUrl ");
-                    },
-                  ),
+                      icon: FontAwesomeIcons.share,
+                      onTap: () {
+                        Share.share(
+                            "download wallpaper app for amazing wallpapers  ");
+                      }),
                   Buttons(
                     icon: FontAwesomeIcons.brush,
-                    onTap: () {},
+                    onTap: () async {
+                      var wallpapertype = await showActionSheet(context);
+                      if (wallpapertype != null) {
+                        var cachedImage =
+                            await DefaultCacheManager().getSingleFile(imgUrl);
+                        if (cachedImage != null) {
+                          var croppedImage = ImageCropper.cropImage(
+                              sourcePath: cachedImage.path,
+                              aspectRatio: CropAspectRatio(
+                                  ratioX: MediaQuery.of(context).size.width,
+                                  ratioY: MediaQuery.of(context).size.height));
+                          if (croppedImage != null) {
+                            var result =
+                                await WallpaperManager.setWallpaperFromFile(
+                                    cachedImage.path, setAs[wallpapertype]);
+                            print(result);
+                          }
+                        }
+                      }
+                    },
                   ),
                 ],
-              )
+              ),
+              Positioned(
+                  top: 20,
+                  left: 10,
+                  child: Buttons(
+                    icon: FontAwesomeIcons.arrowLeft,
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  )),
             ],
           ),
-        ));
+        )));
   }
 
   _askPermission() async {

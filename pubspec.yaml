@@ -36,6 +36,8 @@ dependencies:
   permission_handler: ^8.0.1
   share: ^2.0.4
   flutter_cache_manager: ^3.1.1
+  wallpaper_manager: "^1.0.10"
+  image_cropper: ^1.4.0
 
 dev_dependencies:
   flutter_test:

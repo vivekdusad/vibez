@@ -19,6 +19,11 @@ class PexelsServerBase {
     return response;
   }
 
+  Images parseImages(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Images>((json) => Images.fromJson(json));
+}
+
   Future<Images> getBestWallpapers() async {
     Response _response = await _getData(url: bestWallpaperUrl);
     try {
