@@ -155,7 +155,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
       children: [
         AnimatedSwitcher(
           duration: Duration(seconds: 2),
-          child: value ? Text("Dark Mode") : Text("Light Mode"),
+          child: value ? Text("Light Mode") : Text("Dark Mode"),
         ),
         Switch(
             value: value,
