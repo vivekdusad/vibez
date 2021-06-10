@@ -1,3 +1,5 @@
+// @dart=2.12
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/ui/pages/setwallpaper.dart';

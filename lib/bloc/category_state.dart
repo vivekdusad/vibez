@@ -1,3 +1,4 @@
+// @dart=2.12
 part of 'category_bloc.dart';
 
 abstract class CategoryState extends Equatable {

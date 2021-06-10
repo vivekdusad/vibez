@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wallpaper_app/services/pexelsServer.dart';
+import 'package:wallpaper_app/services/thememanager.dart';
 import 'package:wallpaper_app/ui/pages/home.dart';
+import 'package:wallpaper_app/ui/pages/landing.dart';
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
@@ -15,13 +18,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PexelsServerBase().getByCategories("categories");
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Home(),
+    return ValueListenableBuilder(
+      valueListenable: ThemeManager.notifier,
+      builder: (context, thememode, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          themeMode: thememode,
+          darkTheme: ThemeData.dark(),
+          theme: ThemeData.light(),
+          title: 'Flutter Demo',
+          home: child,
+        );
+      },
+      child: LandingPage(),
     );
   }
 }

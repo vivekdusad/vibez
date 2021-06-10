@@ -1,3 +1,4 @@
+// @dart=2.12
 part of 'bestofwallpapers_bloc.dart';
 
 @immutable
@@ -19,5 +20,12 @@ class BestofwallpapersErrorOccured extends BestofwallpapersState {
   final CustomException e;
   BestofwallpapersErrorOccured({
     required this.e,
+  });
+}
+class TrendingwallpapersLoading extends BestofwallpapersState{}
+class TrendingwallpapersLoaded extends BestofwallpapersState{
+  final Images wallpapers;
+  TrendingwallpapersLoaded({
+    required this.wallpapers,
   });
 }

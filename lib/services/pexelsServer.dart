@@ -1,3 +1,4 @@
+// @dart=2.12
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -22,10 +23,12 @@ class PexelsServerBase {
   Images parseImages(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<Images>((json) => Images.fromJson(json));
-}
+  }
 
-  Future<Images> getBestWallpapers() async {
-    Response _response = await _getData(url: bestWallpaperUrl);
+  
+
+  Future<Images> getBestWallpapers(String url) async {
+    Response _response = await _getData(url: url);
     try {
       if (_response.statusCode == 500) {
         throw SocketException("internet");
@@ -45,6 +48,10 @@ class PexelsServerBase {
     // print(image.photos.first.src.portrait);
     return image;
   }
+
+
+
+
   Future<Images> getByCategories(String categories) async {
     Response _response = await _getData(url: searchBaseUrl+categories);
     try {

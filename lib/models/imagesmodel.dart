@@ -1,3 +1,4 @@
+// @dart=2.12
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';

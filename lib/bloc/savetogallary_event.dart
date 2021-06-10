@@ -1,3 +1,4 @@
+// @dart=2.12
 part of 'savetogallary_bloc.dart';
 
 abstract class SavetogallaryEvent extends Equatable {
