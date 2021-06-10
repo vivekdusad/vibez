@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
@@ -51,7 +52,10 @@ class ImageView extends StatelessWidget {
                         return LoadingWidget();
                       }
                       return Buttons(
-                        icon: FontAwesomeIcons.download,
+                        icon: FaIcon(
+                          FontAwesomeIcons.download,
+                          color: Colors.white,
+                        ),
                         onTap: () async {
                           await _askPermission();
                           BlocProvider.of<SavetogallaryBloc>(context)
@@ -60,42 +64,56 @@ class ImageView extends StatelessWidget {
                       );
                     },
                   ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Buttons(
+                        icon: Text("Apply",
+                            style: GoogleFonts.ubuntu(
+                                fontSize: 20, color: Colors.white)),
+                        onTap: () async {
+                          var wallpapertype = await showActionSheet(context);
+                          if (wallpapertype != null) {
+                            var cachedImage = await DefaultCacheManager()
+                                .getSingleFile(imgUrl);
+                            if (cachedImage != null) {
+                              var croppedImage = ImageCropper.cropImage(
+                                  sourcePath: cachedImage.path,
+                                  aspectRatio: CropAspectRatio(
+                                      ratioX: MediaQuery.of(context).size.width,
+                                      ratioY:
+                                          MediaQuery.of(context).size.height));
+                              if (croppedImage != null) {
+                                var result =
+                                    await WallpaperManager.setWallpaperFromFile(
+                                        cachedImage.path, setAs[wallpapertype]);
+                                print(result);
+                              }
+                            }
+                          }
+                        },
+                      ),
+                    ),
+                  ),
                   Buttons(
-                      icon: FontAwesomeIcons.share,
+                      icon: FaIcon(
+                        FontAwesomeIcons.share,
+                        color: Colors.white,
+                      ),
                       onTap: () {
                         Share.share(
                             "download wallpaper app for amazing wallpapers  ");
                       }),
-                  Buttons(
-                    icon: FontAwesomeIcons.brush,
-                    onTap: () async {
-                      var wallpapertype = await showActionSheet(context);
-                      if (wallpapertype != null) {
-                        var cachedImage =
-                            await DefaultCacheManager().getSingleFile(imgUrl);
-                        if (cachedImage != null) {
-                          var croppedImage = ImageCropper.cropImage(
-                              sourcePath: cachedImage.path,
-                              aspectRatio: CropAspectRatio(
-                                  ratioX: MediaQuery.of(context).size.width,
-                                  ratioY: MediaQuery.of(context).size.height));
-                          if (croppedImage != null) {
-                            var result =
-                                await WallpaperManager.setWallpaperFromFile(
-                                    cachedImage.path, setAs[wallpapertype]);
-                            print(result);
-                          }
-                        }
-                      }
-                    },
-                  ),
                 ],
               ),
               Positioned(
                   top: 20,
                   left: 10,
                   child: Buttons(
-                    icon: FontAwesomeIcons.arrowLeft,
+                    icon: FaIcon(
+                      FontAwesomeIcons.arrowLeft,
+                      color: Colors.white,
+                    ),
                     onTap: () {
                       Navigator.pop(context);
                     },
@@ -118,7 +136,7 @@ class ImageView extends StatelessWidget {
 }
 
 class Buttons extends StatelessWidget {
-  final IconData icon;
+  final Widget icon;
   final Function onTap;
   const Buttons({Key? key, required this.icon, required this.onTap})
       : super(key: key);
@@ -134,10 +152,7 @@ class Buttons extends StatelessWidget {
         ),
         padding: EdgeInsets.all(10),
         child: IconButton(
-          icon: FaIcon(
-            icon,
-            color: Colors.white,
-          ),
+          icon: icon,
           onPressed: () {
             onTap();
           },

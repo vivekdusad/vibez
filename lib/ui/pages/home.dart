@@ -14,6 +14,8 @@ import 'package:wallpaper_app/ui/widgets/categoriesgird.dart';
 import 'package:wallpaper_app/ui/widgets/categorystack.dart';
 import 'package:wallpaper_app/ui/widgets/loadUrl.dart';
 import 'package:wallpaper_app/ui/widgets/loading.dart';
+import 'package:wallpaper_app/ui/widgets/searchFeild.dart';
+import 'package:wallpaper_app/ui/widgets/themetoggle.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -134,70 +136,5 @@ class _HomeState extends State<Home> {
             },
           ));
     });
-  }
-}
-
-class ThemeSwitcher extends StatefulWidget {
-  const ThemeSwitcher({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  _ThemeSwitcherState createState() => _ThemeSwitcherState();
-}
-
-class _ThemeSwitcherState extends State<ThemeSwitcher> {
-  bool value = false;
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        AnimatedSwitcher(
-          duration: Duration(seconds: 2),
-          child: value ? Text("Dark Mode") : Text("Light Mode"),
-        ),
-        Switch(
-            value: value,
-            onChanged: (v) {
-              setState(() {
-                value = v;
-              });
-              if (ThemeManager.notifier.value == ThemeMode.dark) {
-                ThemeManager.setTheme(ThemeMode.light);
-              } else {
-                ThemeManager.setTheme(ThemeMode.dark);
-              }
-            })
-      ],
-    );
-  }
-}
-
-class SearchFeild extends StatelessWidget {
-  const SearchFeild({
-    Key key,
-    @required TextEditingController searchController,
-  })  : _searchController = searchController,
-        super(key: key);
-
-  final TextEditingController _searchController;
-
-  @override
-  Widget build(BuildContext context) {
-    return CupertinoSearchTextField(
-      controller: _searchController,
-      onSubmitted: (value) {
-        if (_searchController.text.isNotEmpty) {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => ResultsPage(
-                        category: _searchController.text,
-                      )));
-        }
-      },
-      padding: EdgeInsets.all(20),
-    );
   }
 }

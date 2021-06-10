@@ -50,7 +50,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
         child: Icon(
           item.iconData,
           color: widget.index == index
-              ? Colors.black
+              ? ThemeData().primaryColor
               : Colors.red.withOpacity(0.6),
         ),
       ),
