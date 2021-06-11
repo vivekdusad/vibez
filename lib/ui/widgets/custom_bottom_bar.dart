@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wallpaper_app/constants/constants.dart';
 
+// ignore: must_be_immutable
 class CustomBottomBar extends StatefulWidget {
   final List<CustomNavItem> items;
   int index;

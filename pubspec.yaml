@@ -38,6 +38,7 @@ dependencies:
   wallpaper_manager: "^1.0.10"
   image_cropper: ^1.4.0
   flare_flutter: ^3.0.1
+  shared_preferences: ^2.0.6
 
 dev_dependencies:
   flutter_test:

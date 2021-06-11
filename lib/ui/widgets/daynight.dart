@@ -14,7 +14,7 @@ set currentAnimationState(AnimationStates value) {
 Function(bool) onSelectionChange;
 
 class DayNightSwitch extends StatefulWidget {
-  double height, width;
+  final double height, width;
   DayNightSwitch(
       {this.height = 0.0, this.width = 0.0, Function(bool) onSelection}) {
     onSelectionChange = onSelection;

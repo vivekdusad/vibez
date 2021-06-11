@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:wallpaper_app/constants/constants.dart';
 import 'package:wallpaper_app/constants/custom_exceptions.dart';
 import 'package:wallpaper_app/models/imagesmodel.dart';

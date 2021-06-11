@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:wallpaper_app/bloc/category_bloc.dart';
-import 'package:wallpaper_app/main.dart';
+
 import 'package:wallpaper_app/models/imagesmodel.dart';
 import 'package:wallpaper_app/ui/pages/setwallpaper.dart';
 
+// ignore: must_be_immutable
 class ImagesGrid extends ConsumerWidget {
   final String category;
-  CategoryBloc categoryBloc;
+  final CategoryBloc categoryBloc;
   ImagesGrid({
     Key key,
     @required this.wallpapers,
@@ -20,7 +21,7 @@ class ImagesGrid extends ConsumerWidget {
   ScrollController scrollController = ScrollController();
 
   @override
-  Widget build(BuildContext context, ScopedReader watch) {    
+  Widget build(BuildContext context, ScopedReader watch) {
     scrollController.addListener(() {
       if (scrollController.offset ==
           scrollController.position.maxScrollExtent) {

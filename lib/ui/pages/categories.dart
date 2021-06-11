@@ -1,5 +1,6 @@
 // @dart=2.12
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:wallpaper_app/ui/widgets/categoriesgird.dart';
 import 'package:wallpaper_app/ui/widgets/categorystack.dart';
 
