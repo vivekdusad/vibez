@@ -27,7 +27,7 @@ class TrendingPage extends StatelessWidget {
               return Container();
             }
             if (state is TrendingwallpapersLoaded) {
-              return ImagesGrid(wallpapers: state.wallpapers.photos);
+              return ImagesGrid(wallpapers: state.wallpapers.photos,);
             }
             return LoadingWidget();
           },

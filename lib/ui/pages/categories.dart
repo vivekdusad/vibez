@@ -13,6 +13,16 @@ class CategoriesPage extends StatelessWidget {
       child: CategoriesGrid(
         items: [
           CategoriesStack(
+            title: "Abstract",
+            path: "assets/abstract.jpg",
+            category: "Abstract",
+          ),
+          CategoriesStack(
+            title: "4k",
+            path: "assets/4k.jpg",
+            category: "4k",
+          ),
+          CategoriesStack(
             title: "Animals",
             path: "assets/animals.jpg",
             category: "Animals",
@@ -23,19 +33,9 @@ class CategoriesPage extends StatelessWidget {
             category: "Cars",
           ),
           CategoriesStack(
-            title: "4k",
-            path: "assets/4k.jpg",
-            category: "4k",
-          ),
-          CategoriesStack(
             title: "Nature",
             path: "assets/nature.jpg",
             category: "Nature",
-          ),
-          CategoriesStack(
-            title: "Abstract",
-            path: "assets/abstract.jpg",
-            category: "Abstract",
           ),
           CategoriesStack(
             title: "Gaming",

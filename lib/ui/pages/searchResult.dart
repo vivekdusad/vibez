@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:wallpaper_app/bloc/category_bloc.dart';
 import 'package:wallpaper_app/main.dart';
 import 'package:wallpaper_app/models/imagesmodel.dart';
@@ -27,9 +28,29 @@ class ResultsPage extends ConsumerWidget {
                 return ErrorWidget(state.e);
               }
               if (state is CategoryLoaded) {
+                print("essss");
                 final wallpapers = state.wallpapers.photos;
                 return Container(
-                  child: ImagesGrid(wallpapers: wallpapers),
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          category,
+                          style: GoogleFonts.varela(
+                              fontSize: 40, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Expanded(
+                          child: ImagesGrid(
+                        wallpapers: wallpapers,
+                        category: category,
+                        categoryBloc: categoryBloc,
+                      )),
+                    ],
+                  ),
                 );
               }
               return LoadingWidget();
@@ -38,4 +59,3 @@ class ResultsPage extends ConsumerWidget {
         ));
   }
 }
-

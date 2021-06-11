@@ -102,7 +102,7 @@ class ImageView extends StatelessWidget {
                       ),
                       onTap: () {
                         Share.share(
-                            "download wallpaper app for amazing wallpapers  ");
+                            "download wallpaper app for amazing wallpapers $imgUrl #wallpapers #VibZ ");
                       }),
                 ],
               ),

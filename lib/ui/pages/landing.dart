@@ -19,8 +19,6 @@ class LandingPage extends StatelessWidget {
           CustomNavItem(iconData: FontAwesomeIcons.fire, page: TrendingPage()),
           CustomNavItem(
               iconData: Icons.category_outlined, page: CategoriesPage()),
-          CustomNavItem(
-              iconData: Icons.favorite_outlined, page: FavoritePage()),
         ],
       ),
     );

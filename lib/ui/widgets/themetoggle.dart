@@ -1,6 +1,10 @@
+import 'package:flare_flutter/flare_actor.dart';
+import 'package:flare_flutter/flare_controller.dart';
+import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallpaper_app/services/thememanager.dart';
+import 'package:wallpaper_app/ui/widgets/daynight.dart';
 
 class ThemeSwitcher extends StatefulWidget {
   const ThemeSwitcher({
@@ -12,6 +16,7 @@ class ThemeSwitcher extends StatefulWidget {
 }
 
 class _ThemeSwitcherState extends State<ThemeSwitcher> {
+  FlareControls flareControls = FlareControls();
   bool value = false;
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,7 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
         children: [
           Row(
             children: [
-              Text("Wall",
+              Text("Vibe",
                   style: GoogleFonts.ubuntu(
                       fontSize: 40, fontWeight: FontWeight.bold)),
               Text("Z",
@@ -37,20 +42,36 @@ class _ThemeSwitcherState extends State<ThemeSwitcher> {
             children: [
               AnimatedSwitcher(
                 duration: Duration(seconds: 2),
-                child: value ? Text("Dark Mode") : Text("Light Mode"),
+                child: value
+                    ? Text(
+                        "Light Mode",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      )
+                    : Text(
+                        "Dark Mode",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 15),
+                      ),
               ),
-              Switch(
-                  value: value,
-                  onChanged: (v) {
-                    setState(() {
-                      value = v;
-                    });
-                    if (ThemeManager.notifier.value == ThemeMode.dark) {
-                      ThemeManager.setTheme(ThemeMode.light);
-                    } else {
-                      ThemeManager.setTheme(ThemeMode.dark);
-                    }
-                  })
+              SizedBox(
+                width: 5,
+              ),
+              DayNightSwitch(
+                height: 40.0,
+                width: 95.0,
+                onSelection: (isCheck) {
+                  print(isCheck);
+                  setState(() {
+                    value = isCheck;
+                  });
+                  if (ThemeManager.notifier.value == ThemeMode.dark) {
+                    ThemeManager.setTheme(ThemeMode.light);
+                  } else {
+                    ThemeManager.setTheme(ThemeMode.dark);
+                  }
+                },
+              ),
             ],
           ),
         ],

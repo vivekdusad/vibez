@@ -21,11 +21,9 @@ class PexelsServerBase {
   }
 
   Images parseImages(String responseBody) {
-  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-  return parsed.map<Images>((json) => Images.fromJson(json));
+    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+    return parsed.map<Images>((json) => Images.fromJson(json));
   }
-
-  
 
   Future<Images> getBestWallpapers(String url) async {
     Response _response = await _getData(url: url);
@@ -49,11 +47,10 @@ class PexelsServerBase {
     return image;
   }
 
-
-
-
-  Future<Images> getByCategories(String categories) async {
-    Response _response = await _getData(url: searchBaseUrl+categories);
+  Future<Images> getByCategories(String categories, int page) async {
+    Response _response = await _getData(
+        url:
+            "https://api.pexels.com/v1/search/?page=$page&per_page=40&query=$categories");
     try {
       if (_response.statusCode == 500) {
         throw SocketException("internet");

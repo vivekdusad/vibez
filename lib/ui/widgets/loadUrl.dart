@@ -21,8 +21,6 @@ class LoadImage extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
           child: CachedNetworkImage(
             imageUrl: url,
-            placeholder: (context, url) =>
-                Center(child: CircularProgressIndicator()),
             errorWidget: (context, url, error) => Icon(Icons.error),
           ),
         ),

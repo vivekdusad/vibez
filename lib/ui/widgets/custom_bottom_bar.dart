@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper_app/constants/constants.dart';
 
 class CustomBottomBar extends StatefulWidget {
   final List<CustomNavItem> items;
@@ -20,6 +21,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
         alignment: Alignment.bottomCenter,
         children: [
           PageView(
+            physics: NeverScrollableScrollPhysics(),
             controller: _pageController,
             children: widget.items.map((item) => item.page).toList(),
           ),
@@ -51,7 +53,7 @@ class _CustomBottomBarState extends State<CustomBottomBar> {
           item.iconData,
           color: widget.index == index
               ? ThemeData().primaryColor
-              : Colors.red.withOpacity(0.6),
+              : AppColors.darkPink,
         ),
       ),
     );
