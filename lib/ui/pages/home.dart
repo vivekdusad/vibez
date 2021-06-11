@@ -76,26 +76,11 @@ class _HomeState extends State<Home> {
                                   }),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Categories",
-                                    style: GoogleFonts.quicksand(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  TextButton(
-                                      onPressed: () {},
-                                      child: Text("more",
-                                          style: GoogleFonts.quicksand(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              letterSpacing: 1.2))),
-                                ],
+                              padding: const EdgeInsets.all(10),
+                              child: Text(
+                                "Categories",
+                                style: GoogleFonts.openSansCondensed(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ),
                             Container(

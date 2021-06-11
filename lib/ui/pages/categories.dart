@@ -34,27 +34,27 @@ class CategoriesPage extends StatelessWidget {
           ),
           CategoriesStack(
             title: "Abstract",
-            path: "assets/nature.jpg",
+            path: "assets/abstract.jpg",
             category: "Abstract",
           ),
           CategoriesStack(
             title: "Gaming",
-            path: "assets/nature.jpg",
+            path: "assets/gaming.jpg",
             category: "Gaming",
           ),
           CategoriesStack(
             title: "Dogs",
-            path: "assets/nature.jpg",
+            path: "assets/dogs.jpg",
             category: "Dogs",
           ),
           CategoriesStack(
             title: "Cats",
-            path: "assets/nature.jpg",
+            path: "assets/cats.jpg",
             category: "Cats",
           ),
           CategoriesStack(
             title: "Bitcoin",
-            path: "assets/nature.jpg",
+            path: "assets/bitcoin.jpg",
             category: "Bitcoin",
           ),
         ],
