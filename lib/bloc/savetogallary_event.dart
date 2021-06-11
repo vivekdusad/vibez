@@ -9,7 +9,7 @@ abstract class SavetogallaryEvent extends Equatable {
 }
 
 class SaveToGallaryRequested extends SavetogallaryEvent {
-  String url;
+  final String url;
   SaveToGallaryRequested({
     required this.url,
   });

@@ -1,7 +1,6 @@
 // @dart=2.12
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,8 +9,10 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
 import 'package:wallpaper_app/bloc/savetogallary_bloc.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:wallpaper_app/ui/widgets/actionsheet.dart';
 import 'package:wallpaper_app/ui/widgets/loading.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:wallpaper_manager/wallpaper_manager.dart';
 
 class ImageView extends StatelessWidget {
@@ -76,6 +77,7 @@ class ImageView extends StatelessWidget {
                           if (wallpapertype != null) {
                             var cachedImage = await DefaultCacheManager()
                                 .getSingleFile(imgUrl);
+                            // ignore: unnecessary_null_comparison
                             if (cachedImage != null) {
                               var croppedImage = ImageCropper.cropImage(
                                   sourcePath: cachedImage.path,
@@ -83,6 +85,7 @@ class ImageView extends StatelessWidget {
                                       ratioX: MediaQuery.of(context).size.width,
                                       ratioY:
                                           MediaQuery.of(context).size.height));
+                              // ignore: unnecessary_null_comparison
                               if (croppedImage != null) {
                                 var result =
                                     await WallpaperManager.setWallpaperFromFile(

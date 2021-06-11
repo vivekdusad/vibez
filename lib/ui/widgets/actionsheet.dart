@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:wallpaper_app/ui/pages/home.dart';
 import 'package:wallpaper_manager/wallpaper_manager.dart';
 
 enum wallpaperTypes {
@@ -9,9 +7,9 @@ enum wallpaperTypes {
   Both,
 }
 const setAs = {
-  wallpaperTypes.Home:WallpaperManager.HOME_SCREEN,
-  wallpaperTypes.Both:WallpaperManager.BOTH_SCREENS,
-  wallpaperTypes.Lock:WallpaperManager.LOCK_SCREEN
+  wallpaperTypes.Home: WallpaperManager.HOME_SCREEN,
+  wallpaperTypes.Both: WallpaperManager.BOTH_SCREENS,
+  wallpaperTypes.Lock: WallpaperManager.LOCK_SCREEN
 };
 
 showActionSheet(BuildContext context) {

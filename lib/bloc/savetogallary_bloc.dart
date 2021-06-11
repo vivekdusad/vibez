@@ -16,7 +16,7 @@ class SavetogallaryBloc extends Bloc<SavetogallaryEvent, SavetogallaryState> {
     if (event is SaveToGallaryRequested) {
       yield SavetogallaryLoading();
       try {
-        var imageId = await ImageDownloader.downloadImage(event.url);
+        await ImageDownloader.downloadImage(event.url);
         yield SaveToGallarySucess();
       } catch (e) {
         yield SaveToGallaryFailure();

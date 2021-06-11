@@ -1,10 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallpaper_app/constants/constants.dart';
 import 'package:wallpaper_app/services/pexelsServer.dart';
 import 'package:wallpaper_app/services/thememanager.dart';
-import 'package:wallpaper_app/ui/pages/home.dart';
 import 'package:wallpaper_app/ui/pages/landing.dart';
 
 void main() {
@@ -14,8 +13,25 @@ void main() {
 final pexelsServerProvider =
     Provider<PexelsServerBase>((ref) => PexelsServerBase());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  SharedPreferences prefs;
+  _loadApp() async {
+    prefs = await SharedPreferences.getInstance();
+    // you can load here any other data or external data that your app might need
+  }
+
+  @override
+  void initState() {
+    _loadApp();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
