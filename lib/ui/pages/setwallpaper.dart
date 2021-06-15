@@ -11,6 +11,7 @@ import 'package:share/share.dart';
 import 'package:wallpaper_app/bloc/savetogallary_bloc.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:wallpaper_app/ui/widgets/actionsheet.dart';
+import 'package:wallpaper_app/ui/widgets/downloadRow.dart';
 import 'package:wallpaper_app/ui/widgets/loading.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:wallpaper_manager/wallpaper_manager.dart';
@@ -43,71 +44,9 @@ class ImageView extends StatelessWidget {
                     image: DecorationImage(
                         image: NetworkImage(imgUrl), fit: BoxFit.fill)),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  BlocBuilder<SavetogallaryBloc, SavetogallaryState>(
-                    bloc: savetogallaryBloc,
-                    builder: (context, state) {
-                      if (state is SavetogallaryLoading) {
-                        return LoadingWidget();
-                      }
-                      return Buttons(
-                        icon: FaIcon(
-                          FontAwesomeIcons.download,
-                          color: Colors.white,
-                        ),
-                        onTap: () async {
-                          await _askPermission();
-                          BlocProvider.of<SavetogallaryBloc>(context)
-                              .add(SaveToGallaryRequested(url: imgUrl));
-                        },
-                      );
-                    },
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Buttons(
-                        icon: Text("Apply",
-                            style: GoogleFonts.ubuntu(
-                                fontSize: 20, color: Colors.white)),
-                        onTap: () async {
-                          var wallpapertype = await showActionSheet(context);
-                          if (wallpapertype != null) {
-                            var cachedImage = await DefaultCacheManager()
-                                .getSingleFile(imgUrl);
-                            // ignore: unnecessary_null_comparison
-                            if (cachedImage != null) {
-                              var croppedImage = ImageCropper.cropImage(
-                                  sourcePath: cachedImage.path,
-                                  aspectRatio: CropAspectRatio(
-                                      ratioX: MediaQuery.of(context).size.width,
-                                      ratioY:
-                                          MediaQuery.of(context).size.height));
-                              // ignore: unnecessary_null_comparison
-                              if (croppedImage != null) {
-                                var result =
-                                    await WallpaperManager.setWallpaperFromFile(
-                                        cachedImage.path, setAs[wallpapertype]);
-                                print(result);
-                              }
-                            }
-                          }
-                        },
-                      ),
-                    ),
-                  ),
-                  Buttons(
-                      icon: FaIcon(
-                        FontAwesomeIcons.share,
-                        color: Colors.white,
-                      ),
-                      onTap: () {
-                        Share.share(
-                            "download wallpaper app for amazing wallpapers $imgUrl #wallpapers #VibZ ");
-                      }),
-                ],
+              DownloadRow(
+                imgUrl: imgUrl,
+                savetogallaryBloc: savetogallaryBloc,
               ),
               Positioned(
                   top: 20,
@@ -126,16 +65,7 @@ class ImageView extends StatelessWidget {
         )));
   }
 
-  _askPermission() async {
-    if (await Permission.contacts.request().isGranted) {
-      return;
-    }
-
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.storage,
-    ].request();
-    print(statuses[Permission.storage]);
-  }
+  
 }
 
 class Buttons extends StatelessWidget {

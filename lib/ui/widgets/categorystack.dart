@@ -34,7 +34,7 @@ class CategoriesStack extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     image: DecorationImage(
                       fit: BoxFit.fill,
-                      image: AssetImage(path),
+                      image: NetworkImage(path),
                       colorFilter: ColorFilter.mode(
                           Colors.black.withOpacity(0.4), BlendMode.darken),
                     )),

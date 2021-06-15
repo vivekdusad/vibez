@@ -15,7 +15,8 @@ class LandingPage extends StatelessWidget {
         index: 0,
         items: [
           CustomNavItem(iconData: Icons.home_outlined, page: Home()),
-          CustomNavItem(iconData: FontAwesomeIcons.fire, page: TrendingPage()),
+          CustomNavItem(
+              iconData: FontAwesomeIcons.compass, page: TrendingPage()),
           CustomNavItem(
               iconData: Icons.category_outlined, page: CategoriesPage()),
         ],
