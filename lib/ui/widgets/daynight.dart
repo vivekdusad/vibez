@@ -2,9 +2,10 @@ import 'package:flare_flutter/flare.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
+import 'package:wallpaper_app/main.dart';
 
 DayNightAnimationController animationController = DayNightAnimationController();
-AnimationStates _currentAnimationState = AnimationStates.night_idle;
+AnimationStates _currentAnimationState =prefs.containsKey('Theme')?(prefs.getInt('Theme')==1?AnimationStates.day_idle:AnimationStates.night_idle):AnimationStates.night_idle;
 AnimationStates get currentAnimationState => _currentAnimationState;
 set currentAnimationState(AnimationStates value) {
   _currentAnimationState = value;
@@ -76,7 +77,7 @@ class DayNightAnimationController extends FlareControls {
   @override
   void initialize(FlutterActorArtboard artboard) {
     super.initialize(artboard);
-    play(AnimationStates.night_idle.getName());
+    play(currentAnimationState.getName());
   }
 
   void changeAnimationState(AnimationStates states) {

@@ -6,10 +6,12 @@ import 'package:wallpaper_app/services/pexelsServer.dart';
 import 'package:wallpaper_app/services/thememanager.dart';
 import 'package:wallpaper_app/ui/pages/landing.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
   runApp(ProviderScope(child: MyApp()));
 }
-
+SharedPreferences prefs;
 final pexelsServerProvider =
     Provider<PexelsServerBase>((ref) => PexelsServerBase());
 
@@ -20,20 +22,21 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  SharedPreferences prefs;
+
   _loadApp() async {
-    prefs = await SharedPreferences.getInstance();
+   // prefs = await SharedPreferences.getInstance();
     // you can load here any other data or external data that your app might need
   }
 
   @override
-  void initState() {
-    _loadApp();
+  void initState(){
+    //_loadApp();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    //_loadApp();
     return ValueListenableBuilder(
       valueListenable: ThemeManager.notifier,
       builder: (context, thememode, child) {

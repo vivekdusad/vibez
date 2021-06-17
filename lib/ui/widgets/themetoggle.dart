@@ -1,6 +1,7 @@
 import 'package:flare_flutter/flare_controls.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:wallpaper_app/main.dart';
 import 'package:wallpaper_app/services/thememanager.dart';
 import 'package:wallpaper_app/ui/widgets/daynight.dart';
 
@@ -15,7 +16,7 @@ class ThemeSwitcher extends StatefulWidget {
 
 class _ThemeSwitcherState extends State<ThemeSwitcher> {
   FlareControls flareControls = FlareControls();
-  bool value = false;
+  bool value = prefs.containsKey('Theme')?(prefs.getInt('Theme')==1?true:false):false;
   @override
   Widget build(BuildContext context) {
     return Padding(
