@@ -43,7 +43,7 @@ class DownloadRow extends StatelessWidget {
         ),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Buttons(
               icon: Text("Apply",
                   style: GoogleFonts.ubuntu(fontSize: 20, color: Colors.white)),
