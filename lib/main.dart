@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallpaper_app/constants/constants.dart';
@@ -23,23 +24,24 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  _loadApp() async {
-   // prefs = await SharedPreferences.getInstance();
-    // you can load here any other data or external data that your app might need
-  }
 
   @override
   void initState(){
-    //_loadApp();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+
     //_loadApp();
     return ValueListenableBuilder(
       valueListenable: ThemeManager.notifier,
       builder: (context, thememode, child) {
+        var statusColor=(thememode==ThemeMode.dark)?Colors.black:Colors.white.withAlpha(250);
+        var iconColors=(thememode==ThemeMode.dark)?Brightness.light:Brightness.dark;
+        SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+            statusBarColor: statusColor ,statusBarIconBrightness: iconColors,
+        ));
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           themeMode: thememode,
@@ -61,7 +63,7 @@ class _MyAppState extends State<MyApp> {
           home: child,
         );
       },
-      child: LandingPage(),
+      child:SafeArea(child: LandingPage()),
     );
   }
 }
