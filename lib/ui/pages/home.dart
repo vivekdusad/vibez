@@ -39,80 +39,78 @@ class _HomeState extends State<Home> {
               if (state is BestWallpapersLoaded) {
                 return Scaffold(
                   body: SingleChildScrollView(
-                    child: SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 40),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ThemeSwitcher(),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12),
-                              child: SearchFeild(
-                                  searchController: _searchController),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ThemeSwitcher(),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12),
+                            child: SearchFeild(
+                                searchController: _searchController),
+                          ),
+                          Container(
+                            height: 50,
+                            padding: EdgeInsets.only(top: 20, left: 12),
+                            child: Text("Popular",
+                                style: GoogleFonts.quicksand(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          Container(
+                            height: 200,
+                            child: ListView.builder(
+                                itemCount: state.wallpapers.photos.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return LoadImage(
+                                      url: state.wallpapers.photos[index].src
+                                          .portrait);
+                                }),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Text(
+                              "Categories",
+                              style: GoogleFonts.openSansCondensed(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
                             ),
-                            Container(
-                              height: 50,
-                              padding: EdgeInsets.only(top: 20, left: 12),
-                              child: Text("Popular",
-                                  style: GoogleFonts.quicksand(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold)),
+                          ),
+                          Container(
+                            height: 340,
+                            child: CategoriesGrid(
+                              items: [
+                                CategoriesStack(
+                                  title: "Animals",
+                                  path:
+                                      "https://images.pexels.com/photos/65289/polar-bear-bear-teddy-sleep-65289.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                  category: "Animals",
+                                ),
+                                CategoriesStack(
+                                  title: "Cars",
+                                  path:
+                                      "https://images.pexels.com/photos/3136673/pexels-photo-3136673.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                  category: "Cars",
+                                ),
+                                CategoriesStack(
+                                  title: "4k",
+                                  path:
+                                      "https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+                                  category: "4k",
+                                ),
+                                CategoriesStack(
+                                  title: "Nature",
+                                  path:
+                                      "https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+                                  category: "Nature",
+                                ),
+                              ],
                             ),
-                            Container(
-                              height: 200,
-                              child: ListView.builder(
-                                  itemCount: state.wallpapers.photos.length,
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return LoadImage(
-                                        url: state.wallpapers.photos[index].src
-                                            .portrait);
-                                  }),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Text(
-                                "Categories",
-                                style: GoogleFonts.openSansCondensed(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                            Container(
-                              height: 340,
-                              child: CategoriesGrid(
-                                items: [
-                                  CategoriesStack(
-                                    title: "Animals",
-                                    path:
-                                        "https://images.pexels.com/photos/65289/polar-bear-bear-teddy-sleep-65289.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                    category: "Animals",
-                                  ),
-                                  CategoriesStack(
-                                    title: "Cars",
-                                    path:
-                                        "https://images.pexels.com/photos/3136673/pexels-photo-3136673.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                    category: "Cars",
-                                  ),
-                                  CategoriesStack(
-                                    title: "4k",
-                                    path:
-                                        "https://images.pexels.com/photos/956981/milky-way-starry-sky-night-sky-star-956981.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-                                    category: "4k",
-                                  ),
-                                  CategoriesStack(
-                                    title: "Nature",
-                                    path:
-                                        "https://images.pexels.com/photos/3408744/pexels-photo-3408744.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-                                    category: "Nature",
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                     ),
                   ),
