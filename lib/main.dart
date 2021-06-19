@@ -7,12 +7,13 @@ import 'package:wallpaper_app/services/pexelsServer.dart';
 import 'package:wallpaper_app/services/thememanager.dart';
 import 'package:wallpaper_app/ui/pages/landing.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   prefs = await SharedPreferences.getInstance();
   runApp(ProviderScope(child: MyApp()));
 }
-SharedPreferences prefs;
+
+SharedPreferences prefs; //!remove global as soon as possible
 final pexelsServerProvider =
     Provider<PexelsServerBase>((ref) => PexelsServerBase());
 
@@ -23,24 +24,25 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-
   @override
-  void initState(){
+  void initState() {
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     //_loadApp();
     return ValueListenableBuilder(
       valueListenable: ThemeManager.notifier,
       builder: (context, thememode, child) {
-        var statusColor=(thememode==ThemeMode.dark)?Colors.black:Colors.white.withAlpha(250);
-        var iconColors=(thememode==ThemeMode.dark)?Brightness.light:Brightness.dark;
+        var statusColor = (thememode == ThemeMode.dark)
+            ? Colors.black
+            : Colors.white.withAlpha(250);
+        var iconColors =
+            (thememode == ThemeMode.dark) ? Brightness.light : Brightness.dark;
         SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-            statusBarColor: statusColor ,statusBarIconBrightness: iconColors,
+          statusBarColor: statusColor,
+          statusBarIconBrightness: iconColors,
         ));
         return MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -63,7 +65,7 @@ class _MyAppState extends State<MyApp> {
           home: child,
         );
       },
-      child:SafeArea(child: LandingPage()),
+      child: SafeArea(child: LandingPage()),
     );
   }
 }
