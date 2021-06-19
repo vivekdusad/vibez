@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wallpaper_app/main.dart';
 
@@ -16,5 +17,12 @@ class ThemeManager extends ValueNotifier<ThemeMode> {
     if(_themeManager.value==ThemeMode.dark)
      prefs.setInt('Theme', 0);
     else prefs.setInt('Theme', 1);
+  }
+
+  static void setStatusbar(StatusColor,IconColor)
+  {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor:StatusColor,statusBarIconBrightness: IconColor,
+    ));
   }
 }

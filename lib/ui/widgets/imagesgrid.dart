@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:wallpaper_app/bloc/category_bloc.dart';
 
 import 'package:wallpaper_app/models/imagesmodel.dart';
@@ -10,6 +11,7 @@ import 'package:wallpaper_app/ui/pages/setwallpaper.dart';
 class ImagesGrid extends ConsumerWidget {
   final String category;
   final CategoryBloc categoryBloc;
+
   ImagesGrid({
     Key key,
     @required this.wallpapers,
@@ -33,18 +35,12 @@ class ImagesGrid extends ConsumerWidget {
     });
     return BlocProvider(
         create: (context) => categoryBloc,
-        child: GridView.builder(
-          controller: scrollController,
-          itemCount: wallpapers.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.6,
-            mainAxisSpacing: 6.0,
-            crossAxisSpacing: 6.0,
-          ),
-          shrinkWrap: true,
-          padding: EdgeInsets.symmetric(horizontal: 16),
+        child: StaggeredGridView.countBuilder(
+          crossAxisCount: 4,
           physics: ClampingScrollPhysics(),
+          padding: EdgeInsets.symmetric(horizontal: 5),
+          itemCount: 8,
+          shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             return GridTile(
               child: GestureDetector(
@@ -70,6 +66,11 @@ class ImagesGrid extends ConsumerWidget {
               ),
             );
           },
-        ));
+          staggeredTileBuilder: (int index) =>
+              new StaggeredTile.count(2, index.isEven ? 3 : 2),
+          mainAxisSpacing: 10.0,
+          crossAxisSpacing: 10.0,
+        )
+    );
   }
 }
