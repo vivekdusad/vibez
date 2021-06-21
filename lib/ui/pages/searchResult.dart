@@ -21,57 +21,49 @@ class ResultsPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    ThemeManager.setStatusbar(Colors.transparent, Brightness.light);
+
     final CategoryBloc categoryBloc = CategoryBloc(watch(pexelsServerProvider));
     categoryBloc.add(CategoryRequsted(category: category));
-    return WillPopScope(
-      onWillPop: ()async {
-        var statusColor=(ThemeManager.notifier.value==ThemeMode.dark)?Colors.black:Colors.white.withAlpha(250);
-        var iconColors=(ThemeManager.notifier.value==ThemeMode.dark)?Brightness.light:Brightness.dark;
-        ThemeManager.setStatusbar(statusColor, iconColors);
-        return true;
-      },
-      child: BlocProvider(
-          create: (context) => categoryBloc,
-          child: Scaffold(
-            body: BlocBuilder<CategoryBloc, CategoryState>(
-              builder: (context, state) {
-                if (state is CategoryErrorOccured) {
-                  return ErrorWidget(state.e);
-                }
-                if (state is CategoryLoaded) {
-                 // print("essss");
-                  final wallpapers = state.wallpapers.photos;
-                  return Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Text(
-                            category,
-                            style: GoogleFonts.varela(
-                                fontSize: 40, fontWeight: FontWeight.bold),
-                          ),
+    return BlocProvider(
+        create: (context) => categoryBloc,
+        child: Scaffold(
+          body: BlocBuilder<CategoryBloc, CategoryState>(
+            builder: (context, state) {
+              if (state is CategoryErrorOccured) {
+                return ErrorWidget(state.e);
+              }
+              if (state is CategoryLoaded) {
+               // print("essss");
+                final wallpapers = state.wallpapers.photos;
+                return Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(
+                          category,
+                          style: GoogleFonts.varela(
+                              fontSize: 40, fontWeight: FontWeight.bold),
                         ),
-                          Expanded(
-                            child: ImagesGrid(categoryBloc: categoryBloc,category: category,wallpapers: wallpapers,)
-                          )
+                      ),
+                        Expanded(
+                          child: ImagesGrid(categoryBloc: categoryBloc,category: category,wallpapers: wallpapers,)
+                        )
 //                      Expanded(
 //                          child: ImagesGrid(
 //                        wallpapers: wallpapers,
 //                        category: category,
 //                        categoryBloc: categoryBloc,
 //                      )),
-                      ],
-                    ),
-                  );
-                }
-                return LoadingWidget();
-              },
-            ),
-          )),
-    );
+                    ],
+                  ),
+                );
+              }
+              return LoadingWidget();
+            },
+          ),
+        ));
   }
 }
