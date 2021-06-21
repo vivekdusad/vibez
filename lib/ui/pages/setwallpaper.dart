@@ -25,6 +25,7 @@ class ImageView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     SavetogallaryBloc savetogallaryBloc = SavetogallaryBloc();
     return BlocProvider(
         create: (context) => savetogallaryBloc,

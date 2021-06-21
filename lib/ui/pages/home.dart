@@ -40,8 +40,7 @@ class _HomeState extends State<Home> {
                 return ErrorWidget(state.e);
               }
               if (state is BestWallpapersLoaded) {
-                return Scaffold(
-                  body: SingleChildScrollView(
+                return SingleChildScrollView(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 20),
@@ -123,8 +122,7 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                     ),
-                  ),
-                );
+                  );
               }
               return LoadingWidget();
             },
