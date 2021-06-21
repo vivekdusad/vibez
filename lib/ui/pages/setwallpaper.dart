@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:wallpaper_app/bloc/savetogallary_bloc.dart';
+import 'package:wallpaper_app/services/thememanager.dart';
 import 'package:wallpaper_app/ui/widgets/downloadRow.dart';
 import 'package:wallpaper_app/ui/widgets/loading.dart';
 class ImageView extends StatelessWidget {
@@ -55,35 +56,38 @@ class ImageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SavetogallaryBloc savetogallaryBloc = SavetogallaryBloc();
-    return FutureBuilder(
-      future: colorgenerator(),
-      builder:(context,data){
-          if(data.connectionState==ConnectionState.waiting)
-            return LoadingWidget();
-          else
-        return BlocProvider(
-          create: (context) => savetogallaryBloc,
-          child: Scaffold(
-              body: BlocListener<SavetogallaryBloc, SavetogallaryState>(
-            listener: (context, state) {
-              if (state is SaveToGallarySucess) {
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text("Downloaded")));
-              }
-            },
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(imgUrl), fit: BoxFit.fill)),
-                ),
-                DownloadRow(
-                  imgUrl: imgUrl,
-                  savetogallaryBloc: savetogallaryBloc,
-                  textcolor:data.data
-                ),
+    ThemeManager.setStatusbar(Colors.transparent, Brightness.light);
+    return WillPopScope(
+      onWillPop: ()async {  var statusColor=(ThemeManager.notifier.value==ThemeMode.dark)?Colors.black:Colors.white.withAlpha(250);
+      var iconColors=(ThemeManager.notifier.value==ThemeMode.dark)?Brightness.light:Brightness.dark;
+      ThemeManager.setStatusbar(statusColor, iconColors);
+      return true;
+      },
+      child: FutureBuilder(
+        future: colorgenerator(),
+        builder:(context,data){
+            if(data.connectionState==ConnectionState.waiting)
+              return LoadingWidget();
+            else
+          return BlocProvider(
+            create: (context) => savetogallaryBloc,
+            child: Scaffold(
+                body: BlocListener<SavetogallaryBloc, SavetogallaryState>(
+              listener: (context, state) {
+                if (state is SaveToGallarySucess) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text("Downloaded")));
+                }
+              },
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  Image.network(imgUrl,fit:BoxFit.cover,height: MediaQuery.of(context).size.height,width: MediaQuery.of(context).size.width,),
+                  DownloadRow(
+                    imgUrl: imgUrl,
+                    savetogallaryBloc: savetogallaryBloc,
+                    textcolor:data.data
+                  ),
 //              Positioned(
 //                  top: 20,
 //                  left: 10,
@@ -93,13 +97,13 @@ class ImageView extends StatelessWidget {
 //                      Navigator.pop(context);
 //                    },
 //                  )),
-              ],
-            ),
+          ],
+              ),
+            )
           )
-          )
-        )
-        ;
-      },
+          );
+        },
+      ),
     );
   }
 
