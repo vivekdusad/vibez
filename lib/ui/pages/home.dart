@@ -67,8 +67,7 @@ class _HomeState extends State<Home> {
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
                                   return LoadImage(
-                                      url: state.wallpapers.photos[index].src
-                                          .portrait);
+                                      url: state.wallpapers.photos[index].src.portrait);
                                 }),
                           ),
                           Padding(
