@@ -46,25 +46,32 @@ class _HomeState extends State<Home> {
                 return CustomScrollView(
                     physics: BouncingScrollPhysics(),
                     slivers: [
-                      SliverAppBar(
-                          title: Text.rich(TextSpan(children: [
-                            TextSpan(
-                                text: "Vibe",
-                                style: GoogleFonts.ubuntu(
-                                    fontSize: 40, fontWeight: FontWeight.bold)),
-                            TextSpan(
-                                text: "Z",
-                                style: GoogleFonts.ubuntu(
-                                    fontSize: 40,
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.bold)),
-                          ])),
-                          elevation: 0,
-                          // floating: true,
-                          pinned: true,
-                          actions: [
-                            ThemeSwitcher(),
-                          ]),
+                      ValueListenableBuilder(
+                        valueListenable: ThemeManager.notifier,
+                        builder: (context, thememode, child) {
+                          return SliverAppBar(
+                              title: Text.rich(TextSpan(children: [
+                                TextSpan(
+                                    text: "Vibe",
+                                    style: GoogleFonts.ubuntu(
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.bold)),
+                                TextSpan(
+                                    text: "Z",
+                                    style: GoogleFonts.ubuntu(
+                                        fontSize: 40,
+                                        color: Colors.blue,
+                                        fontWeight: FontWeight.bold)),
+                              ])),
+                              elevation: 0,
+                              // floating: true,
+                              backgroundColor: Colors.transparent,
+                              pinned: true,
+                              actions: [
+                                ThemeSwitcher(),
+                              ]);
+                        },
+                      ),
                       SliverList(
                         delegate: SliverChildListDelegate(
                           [
