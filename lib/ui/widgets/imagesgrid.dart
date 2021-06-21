@@ -39,7 +39,7 @@ class ImagesGrid extends ConsumerWidget {
           crossAxisCount: 4,
           physics: ClampingScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: 5),
-          itemCount: 8,
+          itemCount: wallpapers.length,
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             return GridTile(
@@ -70,7 +70,6 @@ class ImagesGrid extends ConsumerWidget {
               new StaggeredTile.count(2, index.isEven ? 3 : 2),
           mainAxisSpacing: 10.0,
           crossAxisSpacing: 10.0,
-        )
-    );
+        ));
   }
 }
