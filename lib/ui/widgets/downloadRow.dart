@@ -57,7 +57,7 @@ class DownloadRow extends StatelessWidget {
                   await DefaultCacheManager().getSingleFile(imgUrl);
               // ignore: unnecessary_null_comparison
               if (cachedImage != null) {
-                var croppedImage = ImageCropper.cropImage(
+                var croppedImage = await ImageCropper.cropImage(
                     sourcePath: cachedImage.path,
                     aspectRatio: CropAspectRatio(
                         ratioX: MediaQuery.of(context).size.width,

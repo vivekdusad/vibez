@@ -9,8 +9,9 @@ class HomeCategoriesGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Container(
-      height: 340,
+      height: size.height / 2,
       child: CategoriesGrid(
         items: [
           CategoriesStack(

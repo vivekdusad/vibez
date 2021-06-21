@@ -35,8 +35,11 @@ class _MyAppState extends State<MyApp> {
     return ValueListenableBuilder(
       valueListenable: ThemeManager.notifier,
       builder: (context, thememode, child) {
-        var statusColor=(thememode==ThemeMode.dark)?Colors.black:Colors.white.withAlpha(250);
-        var iconColors=(thememode==ThemeMode.dark)?Brightness.light:Brightness.dark;
+        var statusColor = (thememode == ThemeMode.dark)
+            ? Colors.black
+            : Colors.white.withAlpha(250);
+        var iconColors =
+            (thememode == ThemeMode.dark) ? Brightness.light : Brightness.dark;
         ThemeManager.setStatusbar(statusColor, iconColors);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -54,7 +57,10 @@ class _MyAppState extends State<MyApp> {
             accentColor: AppColors.darkPink,
             accentIconTheme: IconThemeData(color: Colors.white),
           ),
-          theme: ThemeData.light(),
+          theme: ThemeData.light().copyWith(
+            appBarTheme: AppBarTheme(
+                brightness: Brightness.light, color: AppColors.textBlack),
+          ),
           //title: 'Flutter Demo',
           home: child,
         );

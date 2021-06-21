@@ -8,6 +8,7 @@ import 'package:wallpaper_app/bloc/bestofwallpapers_bloc.dart';
 import 'package:wallpaper_app/main.dart';
 import 'package:wallpaper_app/models/colortone.dart';
 import 'package:wallpaper_app/services/pexelsServer.dart';
+import 'package:wallpaper_app/services/thememanager.dart';
 import 'package:wallpaper_app/ui/pages/searchResult.dart';
 import 'package:wallpaper_app/ui/widgets/categoriesgird.dart';
 import 'package:wallpaper_app/ui/widgets/categorystack.dart';
@@ -26,6 +27,8 @@ class _HomeState extends State<Home> {
   TextEditingController _searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    print(size.height);
     return Consumer(builder: (context, watch, child) {
       PexelsServerBase pexelsServer = watch(pexelsServerProvider);
       final BestofwallpapersBloc bestofwallpapersBloc =
@@ -40,89 +43,102 @@ class _HomeState extends State<Home> {
                 return ErrorWidget(state.e);
               }
               if (state is BestWallpapersLoaded) {
-                return SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ThemeSwitcher(),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 12),
-                            child: SearchFeild(
-                                searchController: _searchController),
-                          ),
-                          Container(
-                            height: 50,
-                            padding: EdgeInsets.only(top: 20, left: 12),
-                            child: Text("Popular",
-                                style: GoogleFonts.quicksand(
-                                    fontSize: 20, fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            height: 200,
-                            child: ListView.builder(
-                                itemCount: state.wallpapers.photos.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return LoadImage(
-                                      url: state.wallpapers.photos[index].src
-                                          .portrait);
-                                }),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              "Color tone",
-                              style: GoogleFonts.openSansCondensed(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                return CustomScrollView(
+                    physics: BouncingScrollPhysics(),
+                    slivers: [
+                      SliverAppBar(
+                          title: Text.rich(TextSpan(children: [
+                            TextSpan(
+                                text: "Vibe",
+                                style: GoogleFonts.ubuntu(
+                                    fontSize: 40, fontWeight: FontWeight.bold)),
+                            TextSpan(
+                                text: "Z",
+                                style: GoogleFonts.ubuntu(
+                                    fontSize: 40,
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold)),
+                          ])),
+                          elevation: 0,
+                          // floating: true,
+                          pinned: true,
+                          actions: [
+                            ThemeSwitcher(),
+                          ]),
+                      SliverList(
+                        delegate: SliverChildListDelegate(
+                          [
+                            SearchFeild(searchController: _searchController),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text("Popular",
+                                  style: GoogleFonts.quicksand(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold)),
                             ),
-                          ),
-                          Container(
-                            height: 60,
-                            child: ListView.builder(
-                                itemCount: colortones.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ResultsPage(
-                                                        category:
-                                                            colortones[index]
-                                                                .id)));
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(7),
-                                            color: colortones[index].color),
-                                        height: 40,
-                                        width: 40,
+                            Container(
+                              height: size.height / 4,
+                              child: ListView.builder(
+                                  itemCount: state.wallpapers.photos.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return LoadImage(
+                                        url: state.wallpapers.photos[index].src
+                                            .portrait);
+                                  }),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text(
+                                "Color tone",
+                                style: GoogleFonts.openSansCondensed(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Container(
+                              height: size.height / 13.6,
+                              child: ListView.builder(
+                                  itemCount: colortones.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ResultsPage(
+                                                          category:
+                                                              colortones[index]
+                                                                  .id)));
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(7),
+                                              color: colortones[index].color),
+                                          height: 40,
+                                          width: 40,
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                }),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(10),
-                            child: Text(
-                              "Categories",
-                              style: GoogleFonts.openSansCondensed(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
+                                    );
+                                  }),
                             ),
-                          ),
-                          HomeCategoriesGrid()
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text(
+                                "Categories",
+                                style: GoogleFonts.openSansCondensed(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            HomeCategoriesGrid()
+                          ],
+                        ),
                       ),
-                    ),
-                  );
+                    ]);
               }
               return LoadingWidget();
             },
