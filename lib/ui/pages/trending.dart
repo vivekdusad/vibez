@@ -7,7 +7,6 @@ import 'package:wallpaper_app/bloc/savetogallary_bloc.dart';
 import 'package:wallpaper_app/main.dart';
 import 'package:wallpaper_app/services/pexelsServer.dart';
 import 'package:wallpaper_app/ui/widgets/downloadRow.dart';
-import 'package:wallpaper_app/ui/widgets/imagesgrid.dart';
 import 'package:wallpaper_app/ui/widgets/loading.dart';
 import 'package:wallpaper_app/ui/widgets/slimCard.dart';
 

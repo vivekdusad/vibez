@@ -12,6 +12,7 @@ class LoadImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        FocusScope.of(context).unfocus();
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => ImageView(imgUrl: url)));
       },

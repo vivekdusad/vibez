@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:wallpaper_app/bloc/savetogallary_bloc.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:wallpaper_app/services/thememanager.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:wallpaper_app/ui/widgets/downloadRow.dart';
 import 'package:wallpaper_app/ui/widgets/loading.dart';
 class ImageView extends StatelessWidget {

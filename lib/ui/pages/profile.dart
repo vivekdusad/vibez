@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key key}) : super(key: key);
@@ -19,53 +20,70 @@ class ProfilePage extends StatelessWidget {
         child: ListView(
           children: [
             ListTile(
+              onTap: (){
+                //Todo
+              },
+              contentPadding: EdgeInsets.all(7),
               title: Row(
                 children: [
-                  Icon(Icons.settings),
+                  Icon(CupertinoIcons.settings),
                   SizedBox(width: 10),
                   Text("How to set live Wallpaper")
                 ],
               ),
             ),
             ListTile(
+              onTap: (){
+                //Todo
+              },
+              contentPadding: EdgeInsets.all(7),
               title: Row(
                 children: [
-                  Icon(Icons.share),
+                  Icon(CupertinoIcons.share),
                   SizedBox(width: 10),
                   Text("Tell a friend")
                 ],
               ),
             ),
             ListTile(
+              onTap: (){
+                //Todo
+              },
+              contentPadding: EdgeInsets.all(7),
               title: Row(
                 children: [
-                  Icon(FontAwesomeIcons.facebookMessenger),
+                  Icon(CupertinoIcons.mail),
                   SizedBox(width: 10),
                   Text("feedback")
                 ],
               ),
             ),
             ListTile(
+              onTap: (){
+                //Todo
+              },
+              contentPadding: EdgeInsets.all(7),
               title: Row(
                 children: [
-                  Icon(Icons.perm_device_information),
+                  Icon(Icons.info),
                   SizedBox(width: 10),
                   Text("About Us")
                 ],
               ),
             ),
-            ListTile(
-              title: Row(
-                children: [
-                  Icon(FontAwesomeIcons.moon),
-                  SizedBox(width: 10),
-                  Text("Night Mode")
-                ],
-              ),
-              trailing: Switch(
-                value: false,
-              ),
-            ),
+            // ListTile(
+            //   title: Row(
+            //     children: [
+            //       Icon(FontAwesomeIcons.moon),
+            //       SizedBox(width: 10),
+            //       Text("Night Mode")
+            //     ],
+            //   ),
+            //   trailing: Switch(
+            //     value: false,
+            //     onChanged: (value) {},
+            //   ),
+            // ),
           ],
         ),
       ),

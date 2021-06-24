@@ -4,7 +4,7 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:palette_generator/palette_generator.dart';
+
 import 'package:permission_handler/permission_handler.dart';
 import 'package:share/share.dart';
 import 'package:wallpaper_app/bloc/savetogallary_bloc.dart';
@@ -64,7 +64,7 @@ class DownloadRow extends StatelessWidget {
                         ratioY: MediaQuery.of(context).size.height));
                 // ignore: unnecessary_null_comparison
                 if (croppedImage != null) {
-                  var result = await WallpaperManager.setWallpaperFromFile(
+                  await WallpaperManager.setWallpaperFromFile(
                       cachedImage.path, setAs[wallpapertype]);
                  // print(result);
                 }

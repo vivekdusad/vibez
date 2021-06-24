@@ -1,15 +1,14 @@
 // @dart=2.12
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:wallpaper_app/bloc/category_bloc.dart';
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:wallpaper_app/main.dart';
-import 'package:wallpaper_app/services/thememanager.dart';
-import 'package:wallpaper_app/ui/pages/setwallpaper.dart';
+
 
 // ignore: import_of_legacy_library_into_null_safe
 import 'package:wallpaper_app/ui/widgets/imagesgrid.dart';

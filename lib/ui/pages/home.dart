@@ -10,8 +10,6 @@ import 'package:wallpaper_app/models/colortone.dart';
 import 'package:wallpaper_app/services/pexelsServer.dart';
 import 'package:wallpaper_app/services/thememanager.dart';
 import 'package:wallpaper_app/ui/pages/searchResult.dart';
-import 'package:wallpaper_app/ui/widgets/categoriesgird.dart';
-import 'package:wallpaper_app/ui/widgets/categorystack.dart';
 import 'package:wallpaper_app/ui/widgets/homecategoriesgrid.dart';
 import 'package:wallpaper_app/ui/widgets/loadUrl.dart';
 import 'package:wallpaper_app/ui/widgets/loading.dart';
@@ -55,6 +53,9 @@ class _HomeState extends State<Home> {
                                     text: "Vibe",
                                     style: GoogleFonts.ubuntu(
                                         fontSize: 40,
+                                        color: thememode == ThemeMode.dark
+                                            ? Colors.white
+                                            : Colors.black,
                                         fontWeight: FontWeight.bold)),
                                 TextSpan(
                                     text: "Z",
@@ -64,8 +65,10 @@ class _HomeState extends State<Home> {
                                         fontWeight: FontWeight.bold)),
                               ])),
                               elevation: 0,
-                              // floating: true,
-                              backgroundColor: Colors.transparent,
+                              floating: true,
+                              backgroundColor: thememode == ThemeMode.dark
+                                  ? Colors.black
+                                  : Colors.white,
                               pinned: true,
                               actions: [
                                 ThemeSwitcher(),
@@ -79,8 +82,9 @@ class _HomeState extends State<Home> {
                             Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Text("Popular",
-                                  style: GoogleFonts.quicksand(
+                                  style: GoogleFonts.openSansCondensed(
                                       fontSize: 20,
+                                      letterSpacing: 1.2,
                                       fontWeight: FontWeight.bold)),
                             ),
                             Container(
@@ -99,7 +103,9 @@ class _HomeState extends State<Home> {
                               child: Text(
                                 "Color tone",
                                 style: GoogleFonts.openSansCondensed(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                    fontSize: 20,
+                                    letterSpacing: 1.2,
+                                    fontWeight: FontWeight.bold),
                               ),
                             ),
                             Container(
@@ -112,6 +118,7 @@ class _HomeState extends State<Home> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: GestureDetector(
                                         onTap: () {
+                                          FocusScope.of(context).unfocus();
                                           Navigator.push(
                                               context,
                                               MaterialPageRoute(
@@ -136,9 +143,12 @@ class _HomeState extends State<Home> {
                             Padding(
                               padding: const EdgeInsets.all(10),
                               child: Text(
-                                "Categories",
+                                "Popular Categories",
                                 style: GoogleFonts.openSansCondensed(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.2,
+                                ),
                               ),
                             ),
                             HomeCategoriesGrid()

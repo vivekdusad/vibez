@@ -17,6 +17,7 @@ class CategoriesStack extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        FocusScope.of(context).unfocus();
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -43,7 +44,7 @@ class CategoriesStack extends StatelessWidget {
           ),
           Text(
             title,
-            style: GoogleFonts.dosis(
+            style: GoogleFonts.lato(
                 fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ],
