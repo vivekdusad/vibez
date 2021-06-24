@@ -46,6 +46,7 @@ class _MyAppState extends State<MyApp> {
           themeMode: thememode,
           darkTheme: ThemeData(
             primarySwatch: Colors.grey,
+            backgroundColor: Colors.black,
             appBarTheme: AppBarTheme(
                 brightness: Brightness.dark, color: AppColors.textBlack),
             inputDecorationTheme: InputDecorationTheme(
@@ -58,14 +59,17 @@ class _MyAppState extends State<MyApp> {
             accentIconTheme: IconThemeData(color: Colors.white),
           ),
           theme: ThemeData.light().copyWith(
+            scaffoldBackgroundColor: Colors.white,
             appBarTheme: AppBarTheme(
-                brightness: Brightness.light, color: AppColors.textBlack),
+              backgroundColor: Colors.white,
+              brightness: Brightness.light,
+            ),
           ),
           //title: 'Flutter Demo',
           home: child,
         );
       },
-      child: SafeArea(child: LandingPage()),
+      child: LandingPage(),
     );
   }
 }
