@@ -23,9 +23,10 @@ class ThemeManager extends ValueNotifier<ThemeMode> {
   }
 
   static void setStatusbar(statusColor, iconColor) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: statusColor,
-      statusBarIconBrightness: iconColor,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: statusColor,
+    //   statusBarIconBrightness: iconColor,
+    // ));
+    SystemChrome.setEnabledSystemUIOverlays([]);
   }
 }
